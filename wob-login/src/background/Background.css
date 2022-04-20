@@ -1,0 +1,25 @@
+.background-image {
+  width: 100%;
+  position: relative;
+}
+
+.background-container {
+  position: relative;
+  height: 100vh !important;
+  width: 100%;
+}
+
+.background-register-container {
+  top: 42px;
+  position: absolute;
+  right: 10%;
+  display: flex;
+  align-items: center !important;
+}
+
+.background-register-title {
+  color: #fff;
+  margin-right: 10px;
+  font-size: 0.8rem;
+  margin: 4px 15px;
+}
