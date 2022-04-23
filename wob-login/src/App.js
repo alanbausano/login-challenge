@@ -1,10 +1,14 @@
 import { Login } from "./main/Main";
 import "./globalStyles/App.css";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
+  const queryClient = new QueryClient();
   return (
     <>
-      <Login />
+      <QueryClientProvider client={queryClient}>
+        <Login />
+      </QueryClientProvider>
     </>
   );
 }
