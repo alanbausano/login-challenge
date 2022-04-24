@@ -11,8 +11,8 @@ import { useLogin } from "../hooks/useLogin";
 export const Form = () => {
   const { handleLogin, isLoading } = useLogin();
   const validationSchema = yup.object().shape({
-    email: yup.string().email().required(QUERY_KEYS.REQUIRED_FIELD),
-    password: yup
+    Username: yup.string().email().required(QUERY_KEYS.REQUIRED_FIELD),
+    Password: yup
       .string()
       .min(6, QUERY_KEYS.PASSWORD_ERROR)
       .required(QUERY_KEYS.REQUIRED_FIELD),
@@ -26,8 +26,9 @@ export const Form = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = () => {
-    handleLogin();
+  const onSubmit = (datos) => {
+    console.log(datos);
+    handleLogin(datos);
   };
 
   return (
@@ -40,12 +41,12 @@ export const Form = () => {
         className="form-input-container mt-4"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="mb-3 form-group">
+        <div className="mb-1 form-group">
           <label htmlFor="email" className="form-label">
             {QUERY_KEYS.EMAIL}
           </label>
           <Controller
-            name="email"
+            name="Username"
             control={control}
             defaultValue=""
             render={({ field }) => (
@@ -60,12 +61,12 @@ export const Form = () => {
             )}
           />
         </div>
-        <div className="mb-3 form-group">
+        <div className="mb-1 form-group">
           <label htmlFor="pass" className="form-label">
             {QUERY_KEYS.PASSWORD}
           </label>
           <Controller
-            name="password"
+            name="Password"
             control={control}
             defaultValue=""
             render={({ field }) => (
