@@ -3,19 +3,21 @@ import "./Form.css";
 import logo from "../assets/logo.svg";
 import { QUERY_KEYS } from "../query-keys";
 import { useForm, Controller } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useLogin } from "../hooks/useLogin";
 
 export const Form = () => {
-  const { handleLogin, isLoading } = useLogin();
+  const { handleLogin, isLoading, data } = useLogin();
   const validationSchema = yup.object().shape({
-    Username: yup.string().email().required(QUERY_KEYS.REQUIRED_FIELD),
+    Username: yup
+      .string()
+      .email(QUERY_KEYS.EMAIL_ERROR)
+      .required(QUERY_KEYS.REQUIRED_EMAIL),
     Password: yup
       .string()
-      .min(6, QUERY_KEYS.PASSWORD_ERROR)
-      .required(QUERY_KEYS.REQUIRED_FIELD),
+      .required(QUERY_KEYS.REQUIRED_PASSWORD)
+      .min(6, QUERY_KEYS.PASSWORD_ERROR),
   });
 
   const {
@@ -26,10 +28,13 @@ export const Form = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (datos) => {
-    console.log(datos);
-    handleLogin(datos);
+  const onSubmit = (formData) => {
+    if (formData !== undefined) {
+      handleLogin(formData);
+    }
   };
+
+  const wrongCredentials = data?.success === false;
 
   return (
     <div className="form-container">
@@ -41,7 +46,12 @@ export const Form = () => {
         className="form-input-container mt-4"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="mb-1 form-group">
+        {wrongCredentials && (
+          <div className="alert alert-danger form-alert py-2">
+            {QUERY_KEYS.WRONG_CREDENTIALS}
+          </div>
+        )}
+        <div className="mb-2 form-group">
           <label htmlFor="email" className="form-label">
             {QUERY_KEYS.EMAIL}
           </label>
@@ -61,7 +71,12 @@ export const Form = () => {
             )}
           />
         </div>
-        <div className="mb-1 form-group">
+        {errors?.Username !== undefined && (
+          <div className="alert alert-danger form-alert py-2">
+            {errors.Username.message}
+          </div>
+        )}
+        <div className="mb-2 form-group">
           <label htmlFor="pass" className="form-label">
             {QUERY_KEYS.PASSWORD}
           </label>
@@ -81,6 +96,11 @@ export const Form = () => {
             )}
           />
         </div>
+        {errors?.Password !== undefined && (
+          <div className="alert alert-danger form-alert py-2">
+            {errors.Password.message}
+          </div>
+        )}
         <div>
           <button className="form-forgot-button">
             {QUERY_KEYS.FORGOT_PASSWORD}
@@ -90,7 +110,14 @@ export const Form = () => {
           type="submit"
           className="form-submit-button btn btn-lg btn-block mt-3"
         >
-          {QUERY_KEYS.SUBMIT}
+          {isLoading ? (
+            <div
+              className="spinner-border spinner-border-sm text-light"
+              role="status"
+            />
+          ) : (
+            <>{QUERY_KEYS.SUBMIT}</>
+          )}
         </button>
       </form>
     </div>

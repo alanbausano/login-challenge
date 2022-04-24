@@ -29,7 +29,7 @@ app.post("/login", (req, res) => {
   ) {
     res.status(200).json(successLogin);
   } else if (req.body.Username !== validEmail.Username) {
-    res.json(errorLogin);
+    res.status(401).json(errorLogin);
   }
 });
 

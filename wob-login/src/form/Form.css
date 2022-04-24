@@ -50,3 +50,10 @@
   font-weight: bold;
   color: #363636;
 }
+
+.form-alert {
+  background-color: #e85837 !important;
+  font-size: 0.8rem !important;
+  font-weight: bold !important;
+  color: #fff !important;
+}

@@ -8,6 +8,10 @@ export const QUERY_KEYS = {
   PLACEHOLDER_PASSWORD: "Escribe tu contraseña",
   REGISTER_TITLE: "¿No tienes una cuenta en Wobiz?",
   REGISTER_BUTTON: "Crea tu cuenta",
-  PASSWORD_ERROR: "Cantidad mínima de caracteres: 6",
-  REQUIRED_FIELD: "Campo obligatorio"
+  PASSWORD_ERROR: "La contraseña no tiene un formato válido.",
+  EMAIL_ERROR: "El email ingresado no es correcto.",
+  REQUIRED_EMAIL: "Necesitamos tu email.",
+  REQUIRED_PASSWORD: "Necesitamos tu contraseña.",
+  WRONG_CREDENTIALS:
+    "Tu email o contraseña son incorrectos. Revísalos y vuelve a intentar.",
 };
